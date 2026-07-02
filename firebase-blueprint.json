@@ -1,0 +1,60 @@
+{
+  "entities": {
+    "Message": {
+      "title": "Message",
+      "description": "A chat message sent by a survivor",
+      "type": "object",
+      "properties": {
+        "text": {
+          "type": "string",
+          "description": "The message content"
+        },
+        "uid": {
+          "type": "string",
+          "description": "The sender's GitHub UID"
+        },
+        "displayName": {
+          "type": "string",
+          "description": "The sender's display name"
+        },
+        "photoURL": {
+          "type": "string",
+          "description": "The sender's avatar URL"
+        },
+        "createdAt": {
+          "type": "string",
+          "format": "date-time",
+          "description": "The timestamp when the message was created"
+        }
+      },
+      "required": ["text", "uid", "displayName", "createdAt"]
+    },
+    "Presence": {
+      "title": "Presence",
+      "description": "The online presence status of an authorized user",
+      "type": "object",
+      "properties": {
+        "lastActive": {
+          "type": "string",
+          "format": "date-time",
+          "description": "The timestamp of the user's last active heartbeat"
+        },
+        "displayName": {
+          "type": "string",
+          "description": "The display name of the online user"
+        }
+      },
+      "required": ["lastActive"]
+    }
+  },
+  "firestore": {
+    "/messages/{messageId}": {
+      "schema": "Message",
+      "description": "Global chat messages collection"
+    },
+    "/presence/{userId}": {
+      "schema": "Presence",
+      "description": "Real-time presence collection"
+    }
+  }
+}

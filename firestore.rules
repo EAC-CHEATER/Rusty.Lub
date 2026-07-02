@@ -1,0 +1,8 @@
+rules_version = '2';
+service cloud.firestore {
+  match /databases/ai-studio-rusthub-2e66bd8d-85dd-4eba-bb83-f354ddc97d59/documents {
+    match /{document=**} {
+      allow read, write: if true;
+    }
+  }
+}
