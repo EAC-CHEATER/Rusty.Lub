@@ -376,6 +376,51 @@ export default function UserProfileModal({
               </button>
             )}
 
+            {/* Admin Panel for Owner */}
+            {currentUser?.uid === 'serustqs' && targetUser.uid !== 'serustqs' && (
+              <div className="bg-red-950/20 border border-red-900/50 p-3 space-y-2">
+                <span className="text-[9px] font-mono text-red-400 block uppercase tracking-wider">
+                  Admin Panel: Clan Tag Management
+                </span>
+                <div className="flex gap-2">
+                  <button
+                    onClick={async () => {
+                      setActionLoading(true);
+                      try {
+                        await updateDoc(doc(db, 'chat_users', targetUser.uid), { clanTag: 'EAC' });
+                        onToast('Clan tag [EAC] assigned!', 'success');
+                      } catch (e) {
+                        onToast('Failed to assign tag', 'error');
+                      } finally {
+                        setActionLoading(false);
+                      }
+                    }}
+                    disabled={actionLoading}
+                    className="flex-1 py-1.5 bg-red-600 hover:bg-red-500 text-white text-[10px] font-bold uppercase rounded-none transition"
+                  >
+                    Set [EAC]
+                  </button>
+                  <button
+                    onClick={async () => {
+                      setActionLoading(true);
+                      try {
+                        await updateDoc(doc(db, 'chat_users', targetUser.uid), { clanTag: '' });
+                        onToast('Clan tag removed!', 'success');
+                      } catch (e) {
+                        onToast('Failed to remove tag', 'error');
+                      } finally {
+                        setActionLoading(false);
+                      }
+                    }}
+                    disabled={actionLoading}
+                    className="flex-1 py-1.5 bg-zinc-700 hover:bg-zinc-600 text-white text-[10px] font-bold uppercase rounded-none transition"
+                  >
+                    Remove
+                  </button>
+                </div>
+              </div>
+            )}
+
             {/* Dynamic Status/Bio Description Block */}
             <div className="bg-black/40 border border-[#2a2f3b]/40 p-3">
               <span className="text-[9px] font-mono text-zinc-500 block uppercase tracking-wider mb-1.5">
